@@ -1,5 +1,7 @@
 var chai = require('chai');
 var expect = chai.expect;
+var chaiHtml = require('chai-html')
+chai.use(chaiHtml);
 let API = require('../src/util/api.js');
 var sinon = require('sinon')
 let axios = require('axios');
@@ -18,11 +20,17 @@ let aapl = {
   }
 }
 
+let aaplHTML = `
+  <p>Company: Apple Inc.</p>
+  <p>Description: Apple Inc is an American multinational technology company. It designs, manufactures, and markets mobile communication and media devices, personal computers, and portable digital music players.</p>
+  <p>Website: http://www.apple.com</p>
+`
+
 describe('API', function(){
   it('should exist', () => expect(API).to.not.be.undefined);
   describe('.fetchCompany', function(){
     it('should exist', () => expect(API.fetchCompany).to.not.be.undefined);
-    it('should return company data when passed a valid ticker', function(done){
+    it.skip('should return company data when passed a valid ticker', function(done){
       this.timeout(5000);
       API.fetchCompany(axios, 'aapl').then(function(response){
         let input = response.data;
@@ -31,7 +39,7 @@ describe('API', function(){
         done();
       })
     });
-    it('should throw error if invalid ticker', function(done){
+    it.skip('should throw error if invalid ticker', function(done){
       this.timeout(5000);
       API.fetchCompany(axios, 'banana').catch(function(err){
         expect(err).to.equal('Invalid ticker')
@@ -79,5 +87,24 @@ describe('API', function(){
       });      
     })
 
+  })
+  describe('.parse', function(){
+    it('should exist', () => expect(API.parse).to.not.be.undefined)
+    it('should parse json to HTML string', function(){
+      let input = aapl.data;
+      let actual = aaplHTML
+      expect(API.parse(input)).html.to.equal(actual);
+    })
+  });
+  describe('fetching and parsing', function(){
+    it('should fetch and then parse and returh HTML string', function(done){
+      let stub = sinon.stub(axios, 'get').returns(Promise.resolve(aapl));
+      let actual = aaplHTML;
+      API.fetchCompany(axios, 'aapl').then(function(response){
+        let input = API.parse(response.data);
+        expect(input).html.to.equal(actual);
+        done();
+      })
+    })
   })
 })

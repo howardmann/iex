@@ -16,3 +16,11 @@ api.fetchCompany = function($, ticker){
     });
   }) 
 }
+
+api.parse = function(data){
+  return `
+    <p>Company: ${data.companyName}</p>
+    <p>Description: ${data.description}</p>
+    <p>Website: ${data.website}</p>
+  `
+}
