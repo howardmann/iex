@@ -5948,8 +5948,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var moment = require('moment');
         moment().format();
 
-        // http://webhose.io/filterWebContent?token=da347ad6-b6b4-4135-839d-4308c3989db4&format=json&sort=relevancy&q=donald%20trump%20language%3Aenglish%20site_type%3Anews
-
+        // http://webhose.io/filterWebContent?token=da347ad6-b6b4-4135-839d-4308c3989db4&format=json&ts=1500986438557&sort=relevancy&q=donald%20trump%20language%3Aenglish%20site_type%3Anews
 
         var baseURL = 'http://webhose.io/filterWebContent?token=';
         var APIKEY = 'da347ad6-b6b4-4135-839d-4308c3989db4';
