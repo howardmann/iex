@@ -2,5 +2,15 @@ body {
   font-family: 'arial', sans-serif;
   background: gainsboro;
   padding: 5%;
-  text-align: center;
+}
+
+.post {
+  margin: 5px;
+  padding: 10px 5px;
+  border: 1px solid black;
+}
+
+#input-search {
+  width: 300px;
+  padding: 5px;
 }

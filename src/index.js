@@ -1,4 +1,4 @@
-let API = require('./util/api.js');
+let API = require('./util/webhose.js');
 let axios = require('axios');
 
 $(document).ready(function(){
@@ -10,14 +10,14 @@ $(document).ready(function(){
   // Event handler listen for search submit
   $form.on('submit', function(e){
     e.preventDefault();
-    let ticker = $input.val();
-    fetchTicker(ticker);
+    let text = $input.val();
+    fetchNews(text);
   })
 
-  // Fetch stock
-  function fetchTicker(ticker){
-    API.fetchCompany(axios, ticker)
-      .then(response => API.parse(response.data))
+  // Fetch news
+  function fetchNews(string){
+    $main.html('...loading');
+    API.fetchRender(string)
       .then(output => $main.html(output))
       .catch(err => $main.html(err))
   }
